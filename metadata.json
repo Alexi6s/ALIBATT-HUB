@@ -1,0 +1,6 @@
+{
+  "name": "ALABATT-HUB / ALABATT-CES Centre for Entrepreneurship Studies",
+  "description": "Official institutional entrepreneurship, innovation, incubation, mentorship, and venture-building platform for Benue State University (BSU) and ALABATT ecosystem.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

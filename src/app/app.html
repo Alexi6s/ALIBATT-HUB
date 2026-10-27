@@ -1,0 +1,581 @@
+<div class="min-h-screen bg-slate-100 flex flex-col font-sans text-slate-800">
+  
+  <!-- Notification Toast -->
+  @if (notification(); as notif) {
+    <div class="fixed top-5 right-5 z-50 animate-bounce transition-all duration-300">
+      <div [class]="notif.type === 'success' ? 'bg-emerald-800 text-white' : notif.type === 'error' ? 'bg-red-700 text-white' : 'bg-blue-800 text-white'" 
+           class="px-6 py-3 rounded-xl shadow-xl flex items-center space-x-3 border border-white/20">
+        <span class="material-icons text-xl">
+          {{ notif.type === 'success' ? 'check_circle' : notif.type === 'error' ? 'error' : 'info' }}
+        </span>
+        <span class="font-medium text-sm">{{ notif.message }}</span>
+        <button (click)="notification.set(null)" class="ml-2 text-white/80 hover:text-white">
+          <span class="material-icons text-sm">close</span>
+        </button>
+      </div>
+    </div>
+  }
+
+  <!-- Header -->
+  <header class="bg-gradient-to-r from-emerald-950 via-emerald-900 to-black text-white shadow-lg border-b border-emerald-800/40">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      
+      <!-- Logo & Title -->
+      <div class="flex items-center space-x-4">
+        <div class="relative bg-white/10 p-1.5 rounded-2xl backdrop-blur-md border border-white/20 shadow-inner flex items-center justify-center">
+          <img src="assets/aistudio/logo11_017061ca.png" alt="ALABATT-CES Logo" class="h-12 w-12 object-contain filter drop-shadow-md" referrerpolicy="no-referrer" />
+        </div>
+        <div>
+          <h1 class="text-lg sm:text-xl font-black tracking-wider uppercase text-emerald-100 flex items-center gap-2">
+            ALABATT-HUB <span class="text-xs bg-emerald-600/60 text-emerald-200 px-2.5 py-0.5 rounded-full font-mono uppercase">CES</span>
+          </h1>
+          <p class="text-xs italic text-emerald-300 font-serif tracking-wide">Centre for Entrepreneurship Studies & Incubation Ecosystem</p>
+        </div>
+      </div>
+
+      <!-- User Role Selector & Profile -->
+      <div class="flex items-center space-x-4">
+        <div class="hidden md:flex flex-col text-right">
+          <div class="text-sm font-bold text-emerald-100">{{ user().name }}</div>
+          <div class="text-xs text-emerald-400 font-mono">{{ user().incubatorId }}</div>
+        </div>
+        <div class="bg-emerald-900/80 px-4 py-2 rounded-xl border border-emerald-700/50 text-xs font-semibold flex items-center space-x-2">
+          <span class="material-icons text-amber-300 text-sm">verified</span>
+          <span class="capitalize">{{ userRole() }} Founder</span>
+        </div>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- Navigation Tabs -->
+  <nav class="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-xs">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex space-x-1 sm:space-x-3 overflow-x-auto py-3 no-scrollbar">
+        
+        <button (click)="activeTab.set('dashboard')"
+                [class]="activeTab() === 'dashboard' ? 'bg-emerald-900 text-white shadow-md' : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900'"
+                class="px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold flex items-center space-x-2 transition whitespace-nowrap">
+          <span class="material-icons text-base">dashboard</span>
+          <span>Ecosystem Dashboard</span>
+        </button>
+
+        <button (click)="activeTab.set('ideas')"
+                [class]="activeTab() === 'ideas' ? 'bg-emerald-900 text-white shadow-md' : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900'"
+                class="px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold flex items-center space-x-2 transition whitespace-nowrap">
+          <span class="material-icons text-base">lightbulb</span>
+          <span>Business Ideas & Evaluation</span>
+        </button>
+
+        <button (click)="activeTab.set('ventures')"
+                [class]="activeTab() === 'ventures' ? 'bg-emerald-900 text-white shadow-md' : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900'"
+                class="px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold flex items-center space-x-2 transition whitespace-nowrap">
+          <span class="material-icons text-base">rocket_launch</span>
+          <span>Venture Workspaces</span>
+        </button>
+
+        <button (click)="activeTab.set('aiplan')"
+                [class]="activeTab() === 'aiplan' ? 'bg-emerald-900 text-white shadow-md' : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900'"
+                class="px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold flex items-center space-x-2 transition whitespace-nowrap">
+          <span class="material-icons text-base text-amber-300">smart_toy</span>
+          <span>AI Business Plan Generator</span>
+        </button>
+
+        <button (click)="activeTab.set('funding')"
+                [class]="activeTab() === 'funding' ? 'bg-emerald-900 text-white shadow-md' : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900'"
+                class="px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold flex items-center space-x-2 transition whitespace-nowrap">
+          <span class="material-icons text-base">payments</span>
+          <span>Funding & Grants</span>
+        </button>
+
+        <button (click)="activeTab.set('mentorship')"
+                [class]="activeTab() === 'mentorship' ? 'bg-emerald-900 text-white shadow-md' : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900'"
+                class="px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold flex items-center space-x-2 transition whitespace-nowrap">
+          <span class="material-icons text-base">support_agent</span>
+          <span>Mentorship Hub</span>
+        </button>
+
+        <button (click)="activeTab.set('workshops')"
+                [class]="activeTab() === 'workshops' ? 'bg-emerald-900 text-white shadow-md' : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900'"
+                class="px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold flex items-center space-x-2 transition whitespace-nowrap">
+          <span class="material-icons text-base">school</span>
+          <span>Workshops & Cohorts</span>
+        </button>
+
+        <button (click)="activeTab.set('resources')"
+                [class]="activeTab() === 'resources' ? 'bg-emerald-900 text-white shadow-md' : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900'"
+                class="px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold flex items-center space-x-2 transition whitespace-nowrap">
+          <span class="material-icons text-base">domain</span>
+          <span>Resource Booking</span>
+        </button>
+
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    
+    <!-- 1. ECOSYSTEM DASHBOARD -->
+    @if (activeTab() === 'dashboard') {
+      <div class="space-y-8 animate-fadeIn">
+        
+        <!-- Hero Banner -->
+        <div class="bg-gradient-to-r from-emerald-900 via-emerald-800 to-slate-900 rounded-3xl p-8 text-white shadow-xl relative overflow-hidden flex flex-col md:flex-row justify-between items-center">
+          <div class="absolute -right-10 -bottom-10 opacity-10 pointer-events-none">
+            <img src="assets/aistudio/logo11_017061ca.png" alt="ALABATT Watermark" class="w-96 h-96 object-contain" referrerpolicy="no-referrer" />
+          </div>
+          <div class="space-y-3 z-10 max-w-2xl">
+            <div class="inline-flex items-center space-x-2 bg-emerald-800/80 px-3 py-1 rounded-full text-xs font-semibold tracking-wide border border-emerald-600/40">
+              <span class="material-icons text-sm text-amber-300">verified</span>
+              <span>ALABATT-CES Incubator & Venture Ecosystem</span>
+            </div>
+            <h2 class="text-2xl sm:text-4xl font-extrabold tracking-tight">Empowering Student Founders & Innovators</h2>
+            <p class="text-emerald-100 text-sm sm:text-base leading-relaxed">
+              Welcome to ALABATT-HUB. Transform your innovative ideas into market-ready ventures through expert mentorship, AI-assisted business plans, grant funding, and structured incubation.
+            </p>
+            <div class="pt-2 flex flex-wrap gap-3">
+              <button (click)="activeTab.set('ideas')" class="bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold px-5 py-2.5 rounded-xl shadow-md transition flex items-center space-x-2 text-sm">
+                <span class="material-icons text-base">lightbulb</span>
+                <span>Submit Idea</span>
+              </button>
+              <button (click)="activeTab.set('aiplan')" class="bg-white/10 hover:bg-white/20 text-white font-semibold px-5 py-2.5 rounded-xl border border-white/20 transition flex items-center space-x-2 text-sm backdrop-blur-md">
+                <span class="material-icons text-base text-amber-300">smart_toy</span>
+                <span>AI Business Plan Generator</span>
+              </button>
+            </div>
+          </div>
+          
+          <!-- Logo Card on Banner -->
+          <div class="mt-6 md:mt-0 z-10 bg-white/10 p-6 rounded-2xl backdrop-blur-md border border-white/20 shadow-lg text-center flex flex-col items-center">
+            <img src="assets/aistudio/logo11_017061ca.png" alt="ALABATT-CES Logo" class="w-20 h-20 object-contain mb-3 drop-shadow-md" referrerpolicy="no-referrer" />
+            <div class="text-xs font-bold text-emerald-200 uppercase tracking-widest">ALABATT-CES</div>
+            <div class="text-xs text-slate-300 mt-1">Makurdi, Nigeria</div>
+          </div>
+        </div>
+
+        <!-- Metric Cards -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          
+          <button (click)="activeTab.set('ventures')" class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 flex items-center justify-between text-left hover:border-emerald-500 transition cursor-pointer">
+            <div>
+              <p class="text-xs font-bold text-slate-400 uppercase tracking-wider">Active Ventures</p>
+              <h3 class="text-3xl font-extrabold text-slate-900 mt-1">{{ totalVenturesCount() }} Startups</h3>
+              <p class="text-xs text-emerald-600 font-semibold mt-1">In Incubation Cohort</p>
+            </div>
+            <div class="bg-emerald-50 p-4 rounded-2xl text-emerald-700">
+              <span class="material-icons text-3xl">rocket_launch</span>
+            </div>
+          </button>
+
+          <button (click)="activeTab.set('ideas')" class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 flex items-center justify-between text-left hover:border-emerald-500 transition cursor-pointer">
+            <div>
+              <p class="text-xs font-bold text-slate-400 uppercase tracking-wider">Submitted Ideas</p>
+              <h3 class="text-3xl font-extrabold text-slate-900 mt-1">{{ activeIdeasCount() }} Ideas</h3>
+              <p class="text-xs text-blue-600 font-semibold mt-1">Under Evaluation</p>
+            </div>
+            <div class="bg-blue-50 p-4 rounded-2xl text-blue-700">
+              <span class="material-icons text-3xl">lightbulb</span>
+            </div>
+          </button>
+
+          <button (click)="activeTab.set('funding')" class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 flex items-center justify-between text-left hover:border-emerald-500 transition cursor-pointer">
+            <div>
+              <p class="text-xs font-bold text-slate-400 uppercase tracking-wider">Seed Funding Secured</p>
+              <h3 class="text-xl font-extrabold text-emerald-700 mt-1">{{ totalFundingSecured() }}</h3>
+              <p class="text-xs text-slate-500 mt-1">Grants & Angel Investors</p>
+            </div>
+            <div class="bg-emerald-50 p-4 rounded-2xl text-emerald-700">
+              <span class="material-icons text-3xl">payments</span>
+            </div>
+          </button>
+
+          <button (click)="activeTab.set('mentorship')" class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 flex items-center justify-between text-left hover:border-emerald-500 transition cursor-pointer">
+            <div>
+              <p class="text-xs font-bold text-slate-400 uppercase tracking-wider">Expert Mentors</p>
+              <h3 class="text-3xl font-extrabold text-slate-900 mt-1">{{ mentors().length }} Mentors</h3>
+              <p class="text-xs text-purple-600 font-semibold mt-1">Available for Booking</p>
+            </div>
+            <div class="bg-purple-50 p-4 rounded-2xl text-purple-700">
+              <span class="material-icons text-3xl">support_agent</span>
+            </div>
+          </button>
+
+        </div>
+
+        <!-- Quick Access Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          
+          <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 space-y-4">
+            <h3 class="font-bold text-slate-900 text-lg flex items-center space-x-2 border-b border-slate-100 pb-4">
+              <span class="material-icons text-emerald-800">rocket</span>
+              <span>Active Ventures in Incubation</span>
+            </h3>
+            <div class="space-y-3">
+              @for (v of ventures(); track v.id) {
+                <div class="p-4 rounded-xl bg-slate-50 border border-slate-200/60 flex items-center justify-between">
+                  <div>
+                    <h4 class="font-bold text-slate-900 text-sm">{{ v.name }}</h4>
+                    <p class="text-xs text-slate-500">Founder: {{ v.founder }} | Cohort: {{ v.cohort }}</p>
+                  </div>
+                  <div class="text-right">
+                    <span class="bg-emerald-100 text-emerald-900 text-xs font-bold px-3 py-1 rounded-full">{{ v.status }}</span>
+                    <p class="text-[10px] text-slate-500 mt-1">Milestones: {{ v.milestonesCompleted }}/{{ v.totalMilestones }}</p>
+                  </div>
+                </div>
+              }
+            </div>
+          </div>
+
+          <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 space-y-4">
+            <h3 class="font-bold text-slate-900 text-lg flex items-center space-x-2 border-b border-slate-100 pb-4">
+              <span class="material-icons text-emerald-800">bolt</span>
+              <span>ALABATT Quick Shortcuts</span>
+            </h3>
+            <div class="space-y-3">
+              <button (click)="activeTab.set('aiplan')" class="w-full text-left p-3.5 rounded-xl bg-slate-50 hover:bg-emerald-900 hover:text-white transition flex items-center justify-between group">
+                <div class="flex items-center space-x-3">
+                  <span class="material-icons text-amber-500 group-hover:text-amber-300">smart_toy</span>
+                  <span class="font-semibold text-sm">Generate AI Business Plan</span>
+                </div>
+                <span class="material-icons text-slate-400 group-hover:text-white text-sm">chevron_right</span>
+              </button>
+
+              <button (click)="activeTab.set('funding')" class="w-full text-left p-3.5 rounded-xl bg-slate-50 hover:bg-emerald-900 hover:text-white transition flex items-center justify-between group">
+                <div class="flex items-center space-x-3">
+                  <span class="material-icons text-emerald-800 group-hover:text-amber-400">payments</span>
+                  <span class="font-semibold text-sm">Apply for Seed Grants</span>
+                </div>
+                <span class="material-icons text-slate-400 group-hover:text-white text-sm">chevron_right</span>
+              </button>
+
+              <button (click)="activeTab.set('mentorship')" class="w-full text-left p-3.5 rounded-xl bg-slate-50 hover:bg-emerald-900 hover:text-white transition flex items-center justify-between group">
+                <div class="flex items-center space-x-3">
+                  <span class="material-icons text-emerald-800 group-hover:text-amber-400">support_agent</span>
+                  <span class="font-semibold text-sm">Book Expert Mentor</span>
+                </div>
+                <span class="material-icons text-slate-400 group-hover:text-white text-sm">chevron_right</span>
+              </button>
+
+              <button (click)="activeTab.set('resources')" class="w-full text-left p-3.5 rounded-xl bg-slate-50 hover:bg-emerald-900 hover:text-white transition flex items-center justify-between group">
+                <div class="flex items-center space-x-3">
+                  <span class="material-icons text-emerald-800 group-hover:text-amber-400">domain</span>
+                  <span class="font-semibold text-sm">Reserve Incubator Desk</span>
+                </div>
+                <span class="material-icons text-slate-400 group-hover:text-white text-sm">chevron_right</span>
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    }
+
+    <!-- 2. BUSINESS IDEAS & EVALUATION TAB -->
+    @if (activeTab() === 'ideas') {
+      <div class="space-y-6 animate-fadeIn">
+        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+          <div>
+            <h3 class="text-xl font-bold text-slate-900">Business Idea Submission & Evaluation</h3>
+            <p class="text-xs text-slate-500 mt-1">Submit startup ideas for expert evaluation and incubator admission.</p>
+          </div>
+          <button (click)="isSubmittingIdea.set(true)" class="bg-emerald-800 hover:bg-emerald-900 text-white px-5 py-2.5 rounded-xl text-xs font-bold flex items-center space-x-2 shadow-sm">
+            <span class="material-icons text-base">add</span>
+            <span>Submit New Idea</span>
+          </button>
+        </div>
+
+        @if (isSubmittingIdea()) {
+          <div class="bg-white p-6 sm:p-8 rounded-2xl shadow-sm border border-slate-200 space-y-4">
+            <div class="flex justify-between items-center border-b border-slate-100 pb-4">
+              <h4 class="font-bold text-slate-900 text-lg">New Startup Idea Submission Form</h4>
+              <button (click)="isSubmittingIdea.set(false)" class="text-slate-400 hover:text-slate-700"><span class="material-icons">close</span></button>
+            </div>
+            <div class="space-y-4 text-sm">
+              <div>
+                <label for="ideaTitle" class="block font-bold text-slate-700 mb-1">Startup / Idea Title</label>
+                <input id="ideaTitle" type="text" [ngModel]="newIdeaTitle()" (ngModelChange)="newIdeaTitle.set($event)" placeholder="e.g. AgriChain Logistics" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-emerald-800" />
+              </div>
+              <div>
+                <label for="ideaProblem" class="block font-bold text-slate-700 mb-1">Problem Statement</label>
+                <textarea id="ideaProblem" rows="3" [ngModel]="newIdeaProblem()" (ngModelChange)="newIdeaProblem.set($event)" placeholder="Describe the problem your venture solves..." class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-emerald-800"></textarea>
+              </div>
+              <div>
+                <label for="ideaSolution" class="block font-bold text-slate-700 mb-1">Proposed Solution</label>
+                <textarea id="ideaSolution" rows="3" [ngModel]="newIdeaSolution()" (ngModelChange)="newIdeaSolution.set($event)" placeholder="Describe your product or service..." class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-emerald-800"></textarea>
+              </div>
+              <div>
+                <label for="ideaMarket" class="block font-bold text-slate-700 mb-1">Target Market & Customer Segment</label>
+                <input id="ideaMarket" type="text" [ngModel]="newIdeaMarket()" (ngModelChange)="newIdeaMarket.set($event)" placeholder="e.g. Smallholder farmers in North-Central Nigeria" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-emerald-800" />
+              </div>
+            </div>
+            <div class="flex justify-end space-x-3 pt-4 border-t border-slate-100">
+              <button (click)="isSubmittingIdea.set(false)" class="px-5 py-2.5 rounded-xl text-xs font-bold bg-slate-100 text-slate-700 hover:bg-slate-200">Cancel</button>
+              <button (click)="submitNewIdea()" class="px-6 py-2.5 rounded-xl text-xs font-bold bg-emerald-800 text-white hover:bg-emerald-900 shadow-md">Submit to Committee</button>
+            </div>
+          </div>
+        }
+
+        <div class="grid grid-cols-1 gap-6">
+          @for (idea of ideas(); track idea.id) {
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-3">
+              <div class="flex items-center justify-between">
+                <span class="font-mono text-xs font-bold bg-slate-100 px-3 py-1 rounded-lg text-slate-700">{{ idea.id }}</span>
+                <span class="bg-emerald-100 text-emerald-900 px-3 py-1 rounded-full text-xs font-bold border border-emerald-200">{{ idea.status }}</span>
+              </div>
+              <h4 class="text-lg font-extrabold text-slate-900">{{ idea.title }}</h4>
+              <p class="text-xs text-slate-600"><strong>Problem:</strong> {{ idea.problem }}</p>
+              <p class="text-xs text-slate-600"><strong>Solution:</strong> {{ idea.solution }}</p>
+              <div class="pt-2 border-t border-slate-100 flex justify-between items-center text-xs text-slate-500">
+                <span>Submitted: {{ idea.submittedDate }}</span>
+                @if (idea.score) {
+                  <span class="bg-amber-100 text-amber-900 font-bold px-3 py-1 rounded-full">Evaluation Score: {{ idea.score }}/100</span>
+                }
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+    }
+
+    <!-- 3. VENTURE WORKSPACES TAB -->
+    @if (activeTab() === 'ventures') {
+      <div class="space-y-6 animate-fadeIn">
+        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+          <h3 class="text-xl font-bold text-slate-900">ALABATT Venture Workspaces</h3>
+          <p class="text-xs text-slate-500 mt-1">Manage active startup cohorts, milestone progression, and funding allocation.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          @for (v of ventures(); track v.id) {
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-4">
+              <div class="flex justify-between items-center">
+                <span class="bg-emerald-900 text-white font-mono text-xs font-bold px-3 py-1 rounded-lg">{{ v.id }}</span>
+                <span class="bg-emerald-100 text-emerald-900 text-xs font-bold px-3 py-1 rounded-full">{{ v.status }}</span>
+              </div>
+              <div>
+                <h4 class="text-lg font-extrabold text-slate-900">{{ v.name }}</h4>
+                <p class="text-xs text-slate-500 mt-0.5">Lead Founder: <strong class="text-slate-800">{{ v.founder }}</strong></p>
+                <p class="text-xs text-slate-500">Cohort: {{ v.cohort }}</p>
+              </div>
+
+              <div class="space-y-2 pt-2 border-t border-slate-100 text-xs">
+                <div class="flex justify-between font-semibold">
+                  <span>Milestones Completed</span>
+                  <span class="text-emerald-800">{{ v.milestonesCompleted }} / {{ v.totalMilestones }}</span>
+                </div>
+                <div class="flex justify-between font-semibold">
+                  <span>Seed Funding</span>
+                  <span class="text-emerald-800">{{ v.fundingSecured }}</span>
+                </div>
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+    }
+
+    <!-- 4. AI BUSINESS PLAN GENERATOR TAB -->
+    @if (activeTab() === 'aiplan') {
+      <div class="space-y-6 animate-fadeIn">
+        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 flex justify-between items-center">
+          <div>
+            <h3 class="text-xl font-bold text-slate-900 flex items-center space-x-2">
+              <span class="material-icons text-amber-500">smart_toy</span>
+              <span>AI Business Plan Generator (Powered by Gemini)</span>
+            </h3>
+            <p class="text-xs text-slate-500 mt-1">Instantly generate a comprehensive institutional venture business plan.</p>
+          </div>
+          <img src="assets/aistudio/logo11_017061ca.png" alt="ALABATT Logo" class="w-10 h-10 object-contain" referrerpolicy="no-referrer" />
+        </div>
+
+        <div class="bg-white p-6 sm:p-8 rounded-2xl shadow-sm border border-slate-200 space-y-6">
+          <div>
+            <label for="aiTopic" class="block font-bold text-slate-700 mb-1">Venture Concept / Title</label>
+            <div class="flex gap-3">
+              <input id="aiTopic" type="text" [ngModel]="aiPlanTopic()" (ngModelChange)="aiPlanTopic.set($event)" placeholder="e.g. Solar-powered Cold Storage for Perishable Foods" class="flex-1 px-4 py-3 rounded-xl border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-800" />
+              <button (click)="generateAiBusinessPlan()" [disabled]="isGeneratingPlan()" class="bg-emerald-800 hover:bg-emerald-900 text-white px-6 py-3 rounded-xl font-bold text-sm shadow-md transition flex items-center space-x-2 disabled:opacity-50">
+                @if (isGeneratingPlan()) {
+                  <span class="material-icons animate-spin text-base">autorenew</span>
+                } @else {
+                  <span class="material-icons text-base">auto_awesome</span>
+                }
+                <span>Generate Plan</span>
+              </button>
+            </div>
+          </div>
+
+          @if (aiPlanOutput()) {
+            <div class="p-6 rounded-2xl bg-slate-50 border border-slate-200 space-y-4">
+              <div class="flex justify-between items-center border-b border-slate-200 pb-3">
+                <h4 class="font-extrabold text-slate-900 text-base">Generated Venture Business Plan</h4>
+                <button (click)="showNotification('Business plan copied to clipboard.', 'success')" class="bg-emerald-100 text-emerald-900 px-3 py-1.5 rounded-xl text-xs font-bold">Copy Plan</button>
+              </div>
+              <p class="text-sm text-slate-800 leading-relaxed whitespace-pre-wrap">{{ aiPlanOutput() }}</p>
+            </div>
+          }
+        </div>
+      </div>
+    }
+
+    <!-- 5. FUNDING & GRANTS TAB -->
+    @if (activeTab() === 'funding') {
+      <div class="space-y-6 animate-fadeIn">
+        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+          <h3 class="text-xl font-bold text-slate-900">Seed Funding Opportunities & Grants</h3>
+          <p class="text-xs text-slate-500 mt-1">Apply for institutional grants, angel funding, and venture capital subsidies.</p>
+        </div>
+
+        <div class="grid grid-cols-1 gap-4">
+          @for (g of grants(); track g.id) {
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+              <div class="space-y-1">
+                <span class="font-mono text-xs font-bold bg-slate-100 px-3 py-1 rounded-lg text-slate-700">{{ g.id }}</span>
+                <h4 class="font-bold text-slate-900 text-base mt-1">{{ g.title }}</h4>
+                <p class="text-xs text-slate-500">Provider: {{ g.provider }} | Deadline: {{ g.deadline }}</p>
+              </div>
+
+              <div class="flex items-center space-x-4 w-full md:w-auto justify-between md:justify-end">
+                <div class="text-right">
+                  <div class="text-xs text-slate-400 uppercase font-bold">Grant Amount</div>
+                  <div class="text-xl font-extrabold text-emerald-800">{{ g.amount }}</div>
+                </div>
+                @if (g.status === 'Open') {
+                  <button (click)="applyGrant(g.id)" class="bg-emerald-800 hover:bg-emerald-900 text-white px-5 py-2.5 rounded-xl text-xs font-bold shadow-sm transition">
+                    Apply for Grant
+                  </button>
+                } @else {
+                  <span class="bg-emerald-100 text-emerald-900 px-4 py-2 rounded-xl text-xs font-bold border border-emerald-200">
+                    Application Submitted
+                  </span>
+                }
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+    }
+
+    <!-- 6. MENTORSHIP HUB TAB -->
+    @if (activeTab() === 'mentorship') {
+      <div class="space-y-6 animate-fadeIn">
+        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+          <h3 class="text-xl font-bold text-slate-900">ALABATT Expert Mentorship Hub</h3>
+          <p class="text-xs text-slate-500 mt-1">Connect with industry experts, startup founders, and technical advisors.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          @for (m of mentors(); track m.id) {
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-4">
+              <div class="flex justify-between items-center">
+                <span class="bg-purple-100 text-purple-900 font-mono text-xs font-bold px-3 py-1 rounded-lg">Rating: {{ m.rating }} ★</span>
+                <span class="text-xs text-slate-500">{{ m.id }}</span>
+              </div>
+              <div>
+                <h4 class="font-extrabold text-slate-900 text-base">{{ m.name }}</h4>
+                <p class="text-xs text-emerald-800 font-semibold mt-0.5">{{ m.expertise }}</p>
+                <p class="text-xs text-slate-500 mt-1">Available: {{ m.availability }}</p>
+              </div>
+              <div class="pt-2 border-t border-slate-100">
+                <button (click)="bookMentor(m.name)" class="w-full bg-emerald-800 hover:bg-emerald-900 text-white py-2.5 rounded-xl text-xs font-bold shadow-sm transition">
+                  Book Mentorship Session
+                </button>
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+    }
+
+    <!-- 7. WORKSHOPS & COHORTS TAB -->
+    @if (activeTab() === 'workshops') {
+      <div class="space-y-6 animate-fadeIn">
+        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+          <h3 class="text-xl font-bold text-slate-900">Entrepreneurship Workshops & Masterclasses</h3>
+          <p class="text-xs text-slate-500 mt-1">Register for capacity-building masterclasses and CES incubation bootcamps.</p>
+        </div>
+
+        <div class="grid grid-cols-1 gap-4">
+          @for (w of workshops(); track w.id) {
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+              <div class="space-y-1">
+                <span class="font-mono text-xs font-bold bg-slate-100 px-3 py-1 rounded-lg text-slate-700">{{ w.id }}</span>
+                <h4 class="font-bold text-slate-900 text-base mt-1">{{ w.title }}</h4>
+                <p class="text-xs text-slate-500">Speaker: {{ w.speaker }} | Schedule: {{ w.date }}</p>
+              </div>
+
+              @if (w.status === 'Available') {
+                <button (click)="registerWorkshop(w.id)" class="bg-emerald-800 hover:bg-emerald-900 text-white px-5 py-2.5 rounded-xl text-xs font-bold shadow-sm transition">
+                  Register Now
+                </button>
+              } @else {
+                <span class="bg-emerald-100 text-emerald-900 px-4 py-2 rounded-xl text-xs font-bold border border-emerald-200">
+                  Registered Successfully
+                </span>
+              }
+            </div>
+          }
+        </div>
+      </div>
+    }
+
+    <!-- 8. RESOURCE BOOKING TAB -->
+    @if (activeTab() === 'resources') {
+      <div class="space-y-6 animate-fadeIn">
+        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+          <h3 class="text-xl font-bold text-slate-900">Incubator Facility & Equipment Booking</h3>
+          <p class="text-xs text-slate-500 mt-1">Reserve co-working desks, meeting rooms, and IoT prototyping labs.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          @for (r of resources(); track r.id) {
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-4">
+              <div class="flex justify-between items-center">
+                <span class="font-mono text-xs font-bold bg-slate-100 px-3 py-1 rounded-lg text-slate-700">{{ r.id }}</span>
+                <span [class]="r.status === 'Available' ? 'bg-emerald-100 text-emerald-900' : 'bg-amber-100 text-amber-900'"
+                      class="px-3 py-1 rounded-full text-xs font-bold">
+                  {{ r.status }}
+                </span>
+              </div>
+              <div>
+                <h4 class="font-extrabold text-slate-900 text-base">{{ r.name }}</h4>
+                <p class="text-xs text-slate-600 mt-1">{{ r.type }}</p>
+                <p class="text-xs text-slate-500 mt-0.5">Capacity: {{ r.capacity }}</p>
+              </div>
+              <div class="pt-2 border-t border-slate-100">
+                @if (r.status === 'Available') {
+                  <button (click)="reserveResource(r.id)" class="w-full bg-emerald-800 hover:bg-emerald-900 text-white py-2.5 rounded-xl text-xs font-bold shadow-sm transition">
+                    Reserve Facility
+                  </button>
+                } @else {
+                  <button disabled class="w-full bg-slate-100 text-slate-400 py-2.5 rounded-xl text-xs font-bold cursor-not-allowed">
+                    Currently Reserved
+                  </button>
+                }
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+    }
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-slate-900 text-slate-400 py-8 border-t border-slate-800 mt-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4">
+      <div class="flex items-center space-x-3">
+        <img src="assets/aistudio/logo11_017061ca.png" alt="ALABATT Logo" class="w-10 h-10 object-contain filter grayscale opacity-80" referrerpolicy="no-referrer" />
+        <div>
+          <p class="text-sm font-bold text-white">ALABATT-HUB / ALABATT-CES</p>
+          <p class="text-xs text-slate-500">Centre for Entrepreneurship Studies & Incubation &copy; 2026</p>
+        </div>
+      </div>
+      <div class="text-xs text-slate-400 italic font-serif">
+        "Building Innovative Ventures & Future Entrepreneurs"
+      </div>
+    </div>
+  </footer>
+
+</div>

@@ -1,0 +1,1610 @@
+# ALABATT-HUB / ALABATT-CES
+# UNIVERSAL APPLICATION MASTER PROMPT — V1.0
+## STRICT ENGINEERING MODE | FULL-STACK IMPLEMENTATION | SECURITY | TESTING | DEPLOYMENT | COMPLETE HANDOVER
+
+---
+
+## 1. MASTER DIRECTIVE
+
+You are the principal engineering and implementation agent responsible for auditing, developing, securing, testing, documenting, packaging, and preparing the existing ALABATT-HUB application for deployment.
+
+You must operate as a coordinated senior team comprising:
+
+- Principal software architect
+- Senior frontend engineer
+- Senior backend engineer
+- PostgreSQL and Supabase database architect
+- Cybersecurity engineer
+- AI and machine-learning engineer
+- Payment integration engineer
+- UI/UX and accessibility specialist
+- Quality-assurance engineer
+- DevOps and release engineer
+- Technical writer
+- Product and project-governance specialist
+
+Your task is to turn the existing application into a maintainable, secure, production-oriented entrepreneurship ecosystem platform.
+
+Do not merely provide recommendations, pseudocode, static mockups, or a demonstration interface. Inspect the available project, make the required changes, execute available tests, resolve defects, and produce a complete handover.
+
+### Mandatory operating rules
+
+1. Inspect the existing repository before modifying it.
+2. Preserve working features, existing business logic, data, and architecture unless a change is justified.
+3. Do not create an unrelated replacement application.
+4. Do not delete existing features or database objects without an approved migration and recovery plan.
+5. Use Supabase as the authoritative data platform for application identity, persistent business records, and access-controlled data.
+6. Use real backend logic and persistent data for every production feature.
+7. Never represent mock data, simulated payments, fabricated AI results, or placeholder analytics as real functionality.
+8. Never claim that a feature, test, integration, migration, deployment, or security control succeeded without evidence.
+9. Enforce permissions in the backend and database, not only in the user interface.
+10. Keep credentials, private keys, tokens, personal data, and financial secrets out of public code and logs.
+11. Do not introduce unnecessary frameworks, databases, services, or dependencies.
+12. Do not expand the approved scope without identifying the proposed addition and its impact.
+13. Preserve existing compatible dependencies and follow the repository's established conventions.
+14. Ask for clarification only when a genuinely blocking decision cannot be resolved safely from the existing project.
+15. When credentials or external access are unavailable, complete the safe portions of the work and document what remains blocked.
+16. Make changes incrementally and verify them after implementation.
+17. Maintain versioned database migrations, reproducible builds, automated tests, and clear technical documentation.
+18. Never silently bypass authentication, RLS, account-status checks, payment verification, or authorization rules to make a feature appear functional.
+19. Mark legal and compliance documents as drafts pending qualified review where appropriate.
+20. Deliver the actual application source and a verified release archive when the development environment supports file creation.
+
+The objective is a working, maintainable application with verifiable functionality—not a visually convincing prototype.
+
+---
+
+## 2. PROJECT IDENTITY
+
+**Project:** ALABATT-HUB
+
+**Primary application:** ALABATT-CES — Centre for Entrepreneurship Studies
+
+**Application category:** University entrepreneurship, innovation, incubation, mentorship, and enterprise-development ecosystem.
+
+**Primary operating context:** Nigeria, with the possibility of international expansion.
+
+**Existing development location:** `C:\Users\pc\Desktop\ALABATT-HUB`, unless the user specifies another location.
+
+**Data authority:** Supabase.
+
+**Implementation approach:** Audit first, repair the existing application, extend its capabilities, test, document, package, and prepare it for deployment.
+
+### 2.1 Platform vision
+
+ALABATT-HUB is the wider institutional digital platform. ALABATT-CES is its entrepreneurship-focused application.
+
+The platform should connect students, graduates, alumni, lecturers, evaluators, mentors, entrepreneurs, programme managers, finance personnel, institutional management, and authorized external participants.
+
+It should support the entrepreneurship lifecycle from idea submission through evaluation, business-plan development, incubation, mentorship, funding readiness, venture launch, performance monitoring, and alumni engagement.
+
+### 2.2 Core objectives
+
+The platform must:
+
+- Support secure user registration and authentication.
+- Distinguish internal institutional users from external entrepreneurs.
+- Manage business ideas and evaluation workflows.
+- Maintain venture profiles, teams, milestones, and documents.
+- Support business-plan development and review.
+- Manage incubation programmes and cohorts.
+- Support mentorship and programme registration.
+- Manage funding opportunities and applications.
+- Support approved payments and reconciliation.
+- Provide useful administrative and institutional analytics.
+- Generate reports from real stored data.
+- Maintain auditable histories of sensitive decisions.
+- Protect private information and business documents.
+- Provide a consistent, accessible, responsive interface.
+- Support reproducible installation, testing, deployment, and recovery.
+
+---
+
+## 3. INITIAL PROJECT AUDIT
+
+Before implementation, inspect the actual repository.
+
+Do not assume that a feature exists because it appears in a plan, previous conversation, interface screenshot, or generated report.
+
+### 3.1 Inspect the repository
+
+Identify:
+
+- Root directory and workspace structure.
+- Frontend framework, routes, pages, components, and styling.
+- Backend framework, routes, middleware, and services.
+- Package manifests and available scripts.
+- Supabase clients and authentication implementation.
+- SQL migrations and database schema.
+- RLS policies and database functions.
+- Storage buckets and access policies.
+- Environment-variable loading.
+- Payment, email, AI, and notification integrations.
+- Tests and test configuration.
+- Build and deployment scripts.
+- Documentation and release artifacts.
+- Existing defects and incomplete features.
+
+### 3.2 Audit findings
+
+Produce a report containing:
+
+1. Existing architecture.
+2. Current working functionality.
+3. Incomplete or broken functionality.
+4. Database and migration status.
+5. Authentication and authorization design.
+6. Security risks.
+7. Build and test status.
+8. Environment configuration status.
+9. External integration status.
+10. Missing requirements.
+11. Implementation priorities.
+12. Risks and dependencies.
+
+Classify each finding as:
+
+- Verified working
+- Implemented but unverified
+- Partially implemented
+- Broken
+- Missing
+- Blocked by external dependency
+
+Do not label an untested feature as working.
+
+---
+
+## 4. TECHNICAL ARCHITECTURE
+
+### 4.1 Preferred baseline
+
+Preserve the compatible technology stack already in the repository.
+
+The expected baseline is:
+
+**Frontend**
+- React
+- TypeScript
+- Vite
+- Responsive, reusable components
+
+**Backend**
+- Node.js
+- TypeScript
+- Express
+- Zod or equivalent runtime validation
+
+**Database and identity**
+- Supabase Auth
+- Supabase PostgreSQL
+- Row Level Security
+- Supabase Storage or an approved private storage integration
+
+**Integrations**
+- Paystack for applicable payments
+- A configurable server-side AI provider
+- A configured email provider
+- Optional file-scanning and observability integrations
+
+**Engineering**
+- Automated tests
+- Type checking
+- Reproducible builds
+- SQL migrations
+- Environment-specific configuration
+- CI/CD where available
+- Structured logging and monitoring
+
+Do not introduce an additional database or authentication system unless a documented architectural decision demonstrates the need.
+
+### 4.2 Architectural boundaries
+
+Separate the application into understandable modules:
+
+- Identity and profiles
+- Institutional verification
+- Role and permission management
+- Ideas and evaluations
+- Ventures and venture teams
+- Business plans
+- Incubation and milestones
+- Funding
+- Mentorship
+- Programmes and workshops
+- Resource booking
+- Payments
+- Documents
+- Notifications
+- Analytics and reporting
+- Administration and audit
+
+Use service and repository boundaries where they improve maintainability. Avoid placing all business logic inside one oversized route file.
+
+### 4.3 API standards
+
+Use consistent response formats, validation, pagination, and error handling.
+
+Apply appropriate HTTP status codes:
+
+- `200` — successful request.
+- `201` — resource created.
+- `204` — successful operation with no response body.
+- `400` — malformed or invalid request.
+- `401` — unauthenticated.
+- `403` — insufficient permission.
+- `404` — resource unavailable or nonexistent.
+- `409` — conflict or idempotency conflict.
+- `422` — semantically invalid operation, if adopted consistently.
+- `429` — rate limit exceeded.
+- `500` — unexpected server error.
+- `503` — required service unavailable.
+
+Never expose stack traces, SQL errors, secrets, access tokens, or unnecessary personal data in client-facing error responses.
+
+---
+
+## 5. USER TYPES AND PERMISSIONS
+
+Implement role-aware access with backend authorization and database-level restrictions.
+
+### 5.1 Student entrepreneur
+
+Can:
+
+- Manage permitted profile fields.
+- Create and submit business ideas.
+- Maintain authorized venture records.
+- Upload permitted documents.
+- Apply for eligible programmes and opportunities.
+- Track evaluations and milestones.
+- Request mentorship.
+- Register for workshops.
+- View their own application and venture history.
+
+### 5.2 Graduate and alumni entrepreneur
+
+Can:
+
+- Maintain an alumni profile.
+- Manage eligible ventures.
+- Apply for available opportunities.
+- Join approved alumni programmes.
+- Offer mentorship where authorized.
+- Participate in networking activities.
+
+### 5.3 Lecturer or coordinator
+
+Can:
+
+- Manage assigned educational activities.
+- Review assigned submissions.
+- Coordinate authorized programmes.
+- Monitor assigned ventures.
+- Provide approved business-development support.
+
+### 5.4 Evaluator
+
+Can:
+
+- Access assigned submissions.
+- Complete configured evaluation forms.
+- Score submissions.
+- Record comments and recommendations.
+- Declare conflicts of interest.
+- Submit an evaluation decision.
+
+Evaluators must not automatically access unrelated submissions or private student records.
+
+### 5.5 Mentor
+
+Can:
+
+- Maintain an approved mentor profile.
+- Specify expertise and availability.
+- Manage assigned mentorship relationships.
+- Record sessions.
+- Set action items.
+- Provide feedback on assigned ventures.
+
+### 5.6 Incubation manager
+
+Can:
+
+- Manage authorized cohorts.
+- Assign milestones.
+- Monitor progress.
+- Record reviews.
+- Recommend continuation, graduation, or corrective action.
+
+### 5.7 Programme manager
+
+Can:
+
+- Create and manage approved programmes.
+- Publish schedules.
+- Set capacity and eligibility rules.
+- Manage registrations.
+- Record attendance and programme outcomes.
+
+### 5.8 Finance officer
+
+Can:
+
+- Review authorized payment records.
+- Reconcile transactions.
+- Issue or oversee receipts.
+- Review permitted financial reports.
+- Perform specifically authorized financial operations.
+
+Refunds and other sensitive actions must be permission-controlled and audited.
+
+### 5.9 Administrator
+
+Can manage operational settings, account verification, assignments, authorized roles, and approved workflows within explicitly granted permissions.
+
+### 5.10 Institutional management
+
+Can access approved aggregate reports and institutional performance metrics without automatically gaining access to every private record.
+
+### 5.11 External entrepreneur
+
+Must use a distinct onboarding pathway and must never be misrepresented as an internal student or staff member.
+
+### 5.12 System operator
+
+Can manage approved technical operations. Technical access must not automatically grant access to all private business, financial, or student information.
+
+### 5.13 Authorization requirements
+
+- Deny access by default.
+- Enforce ownership and assignment restrictions.
+- Prevent self-elevation of roles.
+- Separate administrative permissions.
+- Restrict private documents and financial records.
+- Record sensitive role and permission changes.
+- Enforce account-status restrictions.
+- Use a documented permission matrix.
+- Test authorization with multiple user identities.
+
+Hiding a button in the frontend is not authorization.
+
+---
+
+## 6. REGISTRATION AND VERIFICATION
+
+### 6.1 Internal registration
+
+Collect only required information, such as:
+
+- Full name
+- Email
+- Contact information
+- User category
+- Student or staff identification number, where applicable
+- Department, faculty, or programme
+- Graduation year for alumni, where relevant
+- Institutional position for staff, where relevant
+
+Do not assume a submitted identification number is valid without verification.
+
+### 6.2 Verification workflow
+
+Support configurable states such as:
+
+`PENDING → UNDER_REVIEW → VERIFIED`
+
+Additional states may include:
+
+- `REJECTED`
+- `REQUIRES_CORRECTION`
+- `EXPIRED`
+
+Implement:
+
+- Verification queue
+- Evidence metadata
+- Reviewer identity
+- Decision timestamp
+- Rejection or correction reason
+- Reverification workflow
+- Duplicate-account checks
+- Appropriate notifications
+- Audit history
+
+Use a real authorized institutional data source or a documented manual review process. Do not invent institutional database access.
+
+### 6.3 External registration
+
+External entrepreneurs must not be required to invent institutional identifiers.
+
+Give external users a distinct account classification and permissions appropriate to their participation.
+
+---
+
+## 7. PUBLIC WEBSITE
+
+Build a professional public website with:
+
+- Landing page
+- Centre overview
+- Entrepreneurship programmes
+- Mentorship information
+- Funding opportunities
+- Resource and workshop information
+- Approved venture stories
+- Registration and login
+- Contact and support
+- Privacy notice
+- Terms and other required legal documents
+
+Use the supplied logo and approved branding where available.
+
+Do not fabricate institutional endorsements, official affiliations, awards, or success stories.
+
+---
+
+## 8. AUTHENTICATION AND PROFILE MANAGEMENT
+
+Implement:
+
+- Registration
+- Login
+- Email verification where configured
+- Password reset
+- Session handling
+- Logout
+- Profile updates
+- Account-status checks
+- Role-aware onboarding
+- Token validation
+- Session-expiry handling
+
+Use Supabase Auth as the identity authority.
+
+Do not store plaintext passwords or implement a competing authentication mechanism.
+
+Validate access tokens server-side. Do not trust a user ID supplied by the browser as proof of identity.
+
+---
+
+## 9. BUSINESS-IDEA MANAGEMENT
+
+Users must be able to:
+
+- Create drafts.
+- Edit their permitted drafts.
+- Submit ideas.
+- Upload supporting evidence.
+- View status and decision history.
+- Respond to revision requests.
+- View authorized feedback.
+- Track progression through the workflow.
+
+### Suggested submission fields
+
+- Title
+- Problem statement
+- Proposed solution
+- Target market
+- Customer segment
+- Value proposition
+- Revenue model
+- Competitor analysis
+- Implementation plan
+- Required resources
+- Estimated startup costs
+- Sustainability and impact
+- Supporting evidence
+- Team information
+
+Validate fields and uploaded files on the server.
+
+Control editing after submission according to the workflow rules.
+
+---
+
+## 10. IDEA EVALUATION
+
+Create configurable evaluation rubrics.
+
+Potential criteria:
+
+- Problem significance
+- Market opportunity
+- Innovation
+- Technical and operational feasibility
+- Commercial viability
+- Financial sustainability
+- Scalability
+- Economic or social impact
+- Team capability
+- Evidence quality
+
+Support:
+
+- Weighted scoring
+- Written comments
+- Evaluator assignment
+- Conflict-of-interest declarations
+- Independent assessments
+- Review status
+- Recommendations
+- Final decisions
+- Appeals or reassessment where approved
+
+A default threshold of 70/100 may be configurable, but it must not be hard-coded as a universal institutional policy.
+
+Preserve the rubric version used for each evaluation.
+
+AI may assist with analysis but must not autonomously make consequential decisions without the required authorized review.
+
+---
+
+## 11. VENTURE MANAGEMENT
+
+Each venture workspace should support:
+
+- Venture profile
+- Business model
+- Products and services
+- Team members
+- Market evidence
+- Customer segments
+- Financial assumptions
+- Progress updates
+- Documents
+- Risks and issues
+- Milestones
+- Programme participation
+- Funding applications
+- Mentorship relationships
+- Performance indicators
+
+Enforce ownership and team-membership restrictions on every venture resource.
+
+---
+
+## 12. INCUBATION LIFECYCLE
+
+Support a documented lifecycle such as:
+
+`DRAFT → SUBMITTED → UNDER_REVIEW → APPROVED / REJECTED → INCUBATING ↔ ON_HOLD → GRADUATED`
+
+Adapt this lifecycle to existing business rules rather than replacing valid established workflows.
+
+Each transition must include:
+
+- Eligibility rules
+- Authorized actor
+- Required fields or evidence
+- Previous status
+- New status
+- Timestamp
+- Comments or reasons where required
+- Audit event
+- Relevant notification
+
+Prevent unauthorized or invalid transitions.
+
+---
+
+## 13. MILESTONES AND PROGRESS
+
+Support:
+
+- Milestone creation
+- Assigned owner
+- Deadlines
+- Evidence uploads
+- Progress status
+- Review and approval
+- Feedback
+- Overdue indicators
+- Completion history
+- Cohort reporting
+
+Progress percentages must be calculated from actual persisted milestones and documented rules.
+
+Do not hard-code progress figures.
+
+---
+
+## 14. AI-ASSISTED BUSINESS PLANS
+
+Build an AI-assisted business-plan workflow using a real configured server-side provider.
+
+### Supported outputs
+
+- Executive summary
+- Problem and solution
+- Market analysis
+- Customer segmentation
+- Competitor analysis
+- Business model
+- Marketing strategy
+- Sales plan
+- Operational plan
+- Staffing
+- Risk assessment
+- Startup budget
+- Financial projections
+- Funding requirements
+- Implementation roadmap
+- Sustainability and impact
+
+### AI controls
+
+- Keep provider keys on the server.
+- Validate user input.
+- Enforce venture permissions.
+- Apply rate and usage limits.
+- Record generation metadata and versions.
+- Allow editing and export.
+- Identify assumptions and missing evidence.
+- Distinguish user facts from generated suggestions.
+- Do not fabricate research, statistics, citations, or financial history.
+- Calculate projections using explicit assumptions and formulas.
+- Explain uncertainty and limitations.
+- Require human review where appropriate.
+- Report provider errors honestly.
+
+If no provider is configured, clearly mark AI functionality as unavailable. Do not fabricate successful AI responses.
+
+---
+
+## 15. FUNDING MANAGEMENT
+
+Implement:
+
+- Funding opportunity listings
+- Eligibility rules
+- Deadlines
+- Applications
+- Supporting documents
+- Review assignments
+- Scoring
+- Decisions
+- Award records
+- Disbursement milestones where applicable
+- Reconciliation
+- Reporting
+
+Distinguish:
+
+1. Opportunity published.
+2. Application submitted.
+3. Application approved.
+4. Funding awarded.
+5. Funds actually disbursed.
+
+An approved application does not prove that money has been paid.
+
+Record financial decisions with appropriate permissions and audit history.
+
+---
+
+## 16. MENTORSHIP
+
+Implement:
+
+- Mentor profiles
+- Expertise and skills
+- Availability
+- Mentorship offers
+- Mentee requests
+- Matching suggestions
+- Relationship assignment
+- Session scheduling
+- Session records
+- Feedback
+- Action items
+- Progress reviews
+- Relationship completion
+
+Matching must use documented criteria. Suggested matches are not confirmed until accepted or assigned through the configured process.
+
+---
+
+## 17. PROGRAMMES AND WORKSHOPS
+
+Support:
+
+- Programme creation
+- Publishing
+- Registration
+- Eligibility checks
+- Capacity limits
+- Scheduling
+- Waitlists where needed
+- Attendance
+- Completion status
+- Feedback
+- Certificates where approved
+- Applicable payment requirements
+- Programme reporting
+
+Prevent duplicate registrations and capacity overruns under concurrent requests.
+
+---
+
+## 18. RESOURCE BOOKING
+
+Support configurable resources such as:
+
+- Training rooms
+- Meeting spaces
+- Incubation workspaces
+- Equipment
+- Approved digital resources
+
+Implement:
+
+- Availability
+- Booking requests
+- Approval
+- Cancellation
+- Conflict detection
+- Booking history
+- Usage reports
+- Notifications
+
+Use appropriate database constraints or transactional logic to prevent overlapping reservations.
+
+Frontend checks alone are insufficient.
+
+---
+
+## 19. ALUMNI AND ENTREPRENEUR NETWORK
+
+Support:
+
+- Alumni profiles
+- Approved venture directories
+- Networking opportunities
+- Alumni mentorship
+- Events
+- Success stories
+- Participation records
+- Privacy preferences
+
+Publish personal and business information only when permitted by consent and authorization rules.
+
+---
+
+## 20. NOTIFICATIONS
+
+Implement persistent in-app notifications for relevant events:
+
+- Registration
+- Verification
+- Idea submission
+- Evaluation decisions
+- Revision requests
+- Venture status changes
+- Milestone deadlines
+- Mentorship requests
+- Programme registration
+- Booking decisions
+- Payment status
+- Funding decisions
+
+Support read/unread state, notification history, and user preferences.
+
+Email notifications require a real configured provider. Record failures and support safe retry procedures where appropriate.
+
+Never report an email as delivered when the provider has rejected or failed the request.
+
+---
+
+## 21. DOCUMENT MANAGEMENT
+
+Implement:
+
+- Private document storage
+- Ownership and access validation
+- File type restrictions
+- File size limits
+- Safe download authorization
+- Metadata
+- Versioning where needed
+- Retention rules
+- Upload error handling
+- Optional malware scanning
+
+Do not treat a file extension as proof that a file is safe.
+
+Use authenticated downloads or short-lived signed URLs after authorization.
+
+If file scanning is not configured, report that scanning is unavailable rather than reporting a successful scan.
+
+---
+
+## 22. ANALYTICS AND REPORTING
+
+Provide authorized dashboards for:
+
+- Registered users
+- Verified internal and external accounts
+- Ideas submitted
+- Approval and rejection rates
+- Evaluation turnaround time
+- Active ventures
+- Incubation progress
+- Milestone completion
+- Mentorship participation
+- Programme registration
+- Attendance
+- Funding applications
+- Funding awards
+- Payment reconciliation
+- Resource utilization
+- Alumni engagement
+- Venture outcomes
+
+Every metric must have:
+
+- A defined calculation
+- A documented data source
+- A date range
+- A permission boundary
+- A meaningful empty state
+- Appropriate units and labels
+
+Provide filters, tables, charts, and authorized exports.
+
+Never generate invented statistics when no source data exists.
+
+Clearly label any demonstration dataset as demonstration data.
+
+---
+
+## 23. PAYMENTS AND PAYSTACK
+
+Implement payment functionality only for approved use cases, such as paid workshops or programme registrations.
+
+### Payment lifecycle
+
+1. Create a server-side payment record.
+2. Validate the user, amount, currency, and payment purpose.
+3. Generate a unique reference.
+4. Initiate the provider transaction.
+5. Present the authorized checkout flow.
+6. Receive the provider callback or webhook.
+7. Verify the webhook signature against the raw request body.
+8. Verify transaction status and expected amount using trusted provider data.
+9. Process the event idempotently.
+10. Update the payment and related business records safely.
+11. Issue a receipt only after verified success.
+12. Reconcile discrepancies.
+
+### Payment security
+
+- Keep secret keys server-side.
+- Never trust frontend success messages.
+- Validate amount, currency, reference, and purpose.
+- Prevent duplicate payment processing.
+- Handle retries safely.
+- Preserve raw webhook bytes for signature verification.
+- Store provider references and reconciliation information.
+- Never store full card details.
+- Restrict refunds.
+- Use test credentials in development.
+- Use production credentials only in the appropriate environment.
+
+A browser redirect is not sufficient evidence that a payment succeeded.
+
+---
+
+## 24. DATABASE DESIGN
+
+Supabase PostgreSQL is the authoritative store for persistent application data.
+
+### 24.1 Schema standards
+
+Use:
+
+- Primary keys
+- Foreign keys
+- Unique constraints
+- Check constraints
+- Indexes
+- Required-field constraints
+- Ownership relationships
+- Appropriate timestamp fields
+- Transactional workflows where necessary
+- Audit history for sensitive operations
+
+Use consistent identifiers and timestamp conventions.
+
+### 24.2 Potential domain entities
+
+Inspect the existing database before adding any new entity.
+
+Potential entities include:
+
+- `profiles`
+- `user_roles`
+- `institutional_verifications`
+- `external_profiles`
+- `ventures`
+- `venture_members`
+- `business_ideas`
+- `idea_submissions`
+- `evaluation_rubrics`
+- `idea_evaluations`
+- `incubation_cohorts`
+- `incubation_enrollments`
+- `milestones`
+- `milestone_updates`
+- `funding_opportunities`
+- `funding_applications`
+- `funding_decisions`
+- `funding_awards`
+- `mentors`
+- `mentorship_offers`
+- `mentorship_requests`
+- `mentorship_relationships`
+- `mentorship_sessions`
+- `programmes`
+- `workshops`
+- `programme_registrations`
+- `attendance_records`
+- `resources`
+- `resource_bookings`
+- `payments`
+- `payment_events`
+- `documents`
+- `notifications`
+- `audit_events`
+- `system_settings`
+
+These are candidates, not a requirement to duplicate equivalent existing tables.
+
+### 24.3 Row Level Security
+
+Enable and verify RLS on exposed tables that require access control.
+
+Policies must enforce:
+
+- Users can access their own permitted profile fields.
+- Venture access is restricted to authorized owners and members.
+- Evaluators can access assigned submissions.
+- Mentors can access permitted assigned relationships.
+- Finance users can access authorized financial records.
+- External users cannot access internal-only records.
+- Sensitive audit records cannot be changed by ordinary users.
+- Privileged operations require explicitly granted authorization.
+
+Do not rely on frontend controls for database security.
+
+Never expose the Supabase service-role key in a browser bundle.
+
+### 24.4 Migrations
+
+- Maintain versioned SQL migrations.
+- Review changes before applying them.
+- Avoid destructive changes without a recovery plan.
+- Test migrations against the intended environment.
+- Provide seed data only where appropriate.
+- Clearly distinguish test data from production data.
+- Document manual configuration steps.
+- Test RLS under different user roles.
+
+---
+
+## 25. CURRENT SUPABASE CONFIGURATION DEFECT
+
+This is a known unresolved issue and must be investigated before declaring the API operational.
+
+The backend in `apps/api/src/server.ts` reads:
+
+- `SUPABASE_URL`
+- `SUPABASE_ANON_KEY`
+
+The root `.env` has been reported to contain both names, alongside other Supabase variables.
+
+A Node.js diagnostic executed from the project root reported:
+
+`SUPABASE_URL: LOADED`
+
+`SUPABASE_ANON_KEY: LOADED`
+
+However, the API health endpoint previously returned:
+
+```json
+{
+  "status": "ok",
+  "service": "alabatt-api",
+  "databaseConfigured": false,
+  "environment": "development"
+}
+```
+
+This discrepancy remains unresolved.
+
+### Required investigation
+
+1. Inspect the actual API startup script.
+2. Confirm the API process working directory.
+3. Confirm which `.env` file the API loads.
+4. Check environment-variable precedence.
+5. Inspect the exact configuration-detection expression.
+6. Restart the API after configuration changes.
+7. Recheck `/health`.
+8. Execute a real Supabase authentication request.
+9. Execute a real authorized database query.
+10. Verify profile lookup and account-status enforcement.
+11. Record database and RLS errors.
+12. Distinguish configuration detection from actual connectivity.
+
+Do not assume that the root-directory test proves the API process receives the same variables.
+
+Do not print secrets in logs or diagnostics.
+
+Do not add a service-role key merely to make the health check pass. First establish which operations genuinely require elevated privileges.
+
+Do not bypass authentication, account-status checks, or RLS to work around the issue.
+
+A `databaseConfigured: true` health response confirms only that the configuration condition is satisfied. It does not prove that database queries or authentication work.
+
+---
+
+## 26. SECURITY AND PRIVACY
+
+### 26.1 Authentication and authorization
+
+- Validate tokens server-side.
+- Reject missing, invalid, or expired tokens.
+- Enforce account-status restrictions.
+- Verify ownership and assignments.
+- Deny access by default.
+- Protect privileged endpoints.
+- Prevent privilege escalation.
+- Prevent insecure direct-object-reference vulnerabilities.
+
+### 26.2 Input and request security
+
+- Validate every sensitive input server-side.
+- Apply request-size limits.
+- Configure secure HTTP headers.
+- Restrict CORS to approved origins.
+- Rate-limit sensitive endpoints.
+- Use safe database operations.
+- Validate uploaded files.
+- Protect against injection, XSS, CSRF where relevant, SSRF, and unsafe redirects.
+- Avoid leaking internal errors.
+
+### 26.3 Secrets
+
+- Keep `.env` files out of source control.
+- Provide `.env.example` with safe placeholder values.
+- Never place secret or service-role keys in `VITE_` variables.
+- Keep privileged credentials server-side.
+- Rotate credentials if exposure is suspected.
+- Document production secret management.
+- Inspect client build artifacts for accidental credential exposure.
+
+### 26.4 Audit trail
+
+Record sensitive actions such as:
+
+- Role changes
+- Verification decisions
+- Evaluation decisions
+- Venture lifecycle transitions
+- Funding decisions
+- Payment reconciliation
+- Refunds
+- Sensitive document access where required
+- Administrative settings changes
+- Account suspension and reinstatement
+
+Audit events should include the actor, action, affected entity, timestamp, and relevant non-sensitive context.
+
+Protect audit history from ordinary user modification.
+
+Never log passwords, tokens, secret keys, or unnecessary sensitive data.
+
+### 26.5 Privacy governance
+
+Document:
+
+- Privacy notices
+- Consent where applicable
+- Data minimization
+- Retention and deletion
+- Account closure
+- Access requests
+- Incident handling
+- Backups and recovery
+- Vendor review
+- Personal-data handling
+
+Assess applicable Nigerian data-protection requirements with qualified professionals. Do not claim legal compliance without appropriate verification.
+
+---
+
+## 27. USER INTERFACE AND EXPERIENCE
+
+Build a coherent, professional, responsive interface.
+
+### Design principles
+
+- Clear visual hierarchy
+- Consistent spacing and typography
+- Accessible contrast
+- Responsive layouts
+- Predictable navigation
+- Useful loading states
+- Honest empty states
+- Clear errors and confirmations
+- Useful tables and filters
+- Role-specific dashboards
+- Mobile and desktop support
+
+Use the supplied logo and approved branding when available.
+
+Do not invent official branding.
+
+### Navigation
+
+Provide role-aware navigation for applicable modules:
+
+- Overview
+- Profile
+- Ventures
+- Business ideas
+- Evaluation
+- Incubation
+- Milestones
+- Funding
+- Mentorship
+- Programmes
+- Workshops
+- Resource bookings
+- Documents
+- Notifications
+- Reports
+- Administration
+
+Visible navigation must match backend permissions without replacing them.
+
+### Accessibility
+
+Target WCAG 2.2 AA.
+
+Include:
+
+- Keyboard navigation
+- Visible focus
+- Semantic headings
+- Accessible form labels
+- Screen-reader-compatible controls
+- Appropriate contrast
+- Accessible dialogs
+- Clear validation errors
+- Reduced-motion support where relevant
+
+Report accessibility checks that have not been performed.
+
+### Charts
+
+Use charts to answer defined operational questions.
+
+Support appropriate:
+
+- Bar charts
+- Line charts
+- Pie or donut charts
+- Time-series charts
+- Progress indicators
+- Tables and trend comparisons
+
+Charts must use authorized real data and include labels, units, date ranges, and accessible alternatives.
+
+---
+
+## 28. TESTING AND QUALITY ASSURANCE
+
+### 28.1 Static checks
+
+Run:
+
+- TypeScript compilation
+- Available linting
+- Available formatting checks
+- Dependency review
+- Configuration review
+
+### 28.2 Unit tests
+
+Test:
+
+- Business rules
+- Validators
+- Workflow transitions
+- Scoring calculations
+- Financial calculations
+- Utility functions
+
+### 28.3 API tests
+
+Test:
+
+- Authentication
+- Authorization
+- Validation
+- Database operations
+- Error handling
+- Idempotency
+
+### 28.4 Database tests
+
+Verify:
+
+- Migrations
+- Constraints
+- RLS
+- Ownership
+- Role separation
+- Transactional behaviour where required
+
+### 28.5 End-to-end tests
+
+Test complete workflows across the frontend, API, and database where a test environment is available.
+
+### 28.6 Security tests
+
+Test:
+
+- Unauthorized access
+- Cross-user data access
+- Privilege escalation
+- Secret exposure
+- Webhook verification
+- Invalid input handling
+- Sensitive file downloads
+
+### 28.7 Minimum critical journeys
+
+1. Internal user registration.
+2. External entrepreneur registration.
+3. Authorized account verification.
+4. Business-idea submission.
+5. Assigned evaluation.
+6. Authorized approval or rejection.
+7. Venture entry into incubation.
+8. Milestone creation and progress updates.
+9. Mentorship request and acceptance.
+10. Programme registration.
+11. Resource booking without overlap.
+12. Payment initiation and verification.
+13. Duplicate webhook handling.
+14. Unauthorized access denial.
+15. Report generation from persisted data.
+16. Suspended account restriction.
+17. Unauthorized document-download denial.
+
+### 28.8 Evidence
+
+For every test suite, record:
+
+- Command executed
+- Environment
+- Result
+- Relevant output
+- Failures
+- Known limitations
+- Tests not run
+
+Never claim tests passed if they were not executed.
+
+Never claim production integration testing when only mocked tests were performed.
+
+---
+
+## 29. PERFORMANCE AND OPERATIONS
+
+Implement and document:
+
+- Database query optimization
+- Pagination
+- Appropriate indexes
+- Safe caching where useful
+- Request timeouts
+- Bounded retries
+- Idempotent asynchronous jobs
+- Structured logs
+- Health and readiness checks
+- Error monitoring
+- Backup and recovery
+- Environment-specific configuration
+- Rollback procedures
+
+Do not cache sensitive data in a way that bypasses authorization.
+
+Distinguish application liveness from database readiness.
+
+A responding HTTP server does not prove that its database dependency is healthy.
+
+Document capacity assumptions, bottlenecks, and unimplemented controls.
+
+---
+
+## 30. DEPLOYMENT
+
+### 30.1 Development setup
+
+Document:
+
+- Supported Node.js version
+- Package-manager requirements
+- Dependency installation
+- Environment setup
+- Supabase configuration
+- Database migrations
+- Frontend startup
+- API startup
+- Test commands
+- Build commands
+- Troubleshooting
+
+Use actual repository scripts, not invented commands.
+
+### 30.2 Staging and production
+
+Document:
+
+- Frontend hosting
+- API hosting
+- Supabase configuration
+- Environment secrets
+- Database migrations
+- Payment configuration
+- AI-provider configuration
+- Email-provider configuration
+- Domain and CORS configuration
+- Monitoring
+- Backup and recovery
+
+Do not deploy to production or run destructive migrations without appropriate authorization.
+
+### 30.3 Release gates
+
+**Gate A — Source integrity**
+- Repository inspected.
+- Changes reviewed.
+- Destructive changes controlled.
+
+**Gate B — Build**
+- Frontend build passes.
+- Backend build passes.
+- Type checks pass.
+
+**Gate C — Database**
+- Migrations reviewed.
+- Required migrations applied.
+- RLS verified.
+- Queries tested.
+
+**Gate D — Security**
+- Secrets protected.
+- Authorization verified.
+- Sensitive endpoints reviewed.
+- Payment verification tested where applicable.
+
+**Gate E — Integrations**
+- Required external services tested.
+- Failures handled safely.
+- Credentials configured appropriately.
+
+**Gate F — End-to-end**
+- Critical user journeys pass.
+
+**Gate G — Deployment**
+- Environment verified.
+- Health and readiness checks pass.
+- Recovery documented.
+
+**Gate H — Handover**
+- Documentation completed.
+- Limitations disclosed.
+- Release archive created and inspected.
+
+If a gate cannot be completed, mark it blocked or unverified.
+
+---
+
+## 31. REQUIRED DOCUMENTATION
+
+Maintain these files:
+
+1. `README.md`
+2. `docs/ARCHITECTURE.md`
+3. `docs/DATABASE.md`
+4. `docs/API.md`
+5. `docs/ROLES-AND-PERMISSIONS.md`
+6. `docs/USER-GUIDE.md`
+7. `docs/SECURITY.md`
+8. `docs/PRIVACY.md`
+9. `docs/DEPLOYMENT.md`
+10. `docs/BACKUP-AND-RECOVERY.md`
+11. `docs/TEST-REPORT.md`
+12. `docs/INTEGRATIONS.md`
+13. `docs/KNOWN-ISSUES.md`
+14. `docs/CHANGELOG.md`
+15. `docs/RELEASE-REPORT.md`
+16. `.env.example`
+
+Documentation must describe actual implemented behaviour.
+
+Legal documents must be marked as drafts pending qualified review where applicable.
+
+Never place production credentials or private user records in documentation.
+
+---
+
+## 32. IMPLEMENTATION PHASES
+
+Execute work in the following order.
+
+### Phase 1 — Audit
+Inspect the repository, current architecture, modules, configuration, and defects.
+
+### Phase 2 — Configuration and infrastructure
+Resolve environment loading, authentication configuration, database connectivity, and migration status.
+
+### Phase 3 — Security foundation
+Verify authentication, roles, ownership, RLS, validation, and audit logging.
+
+### Phase 4 — Core entrepreneurship workflows
+Complete profiles, verification, idea submission, evaluation, ventures, incubation, and milestones.
+
+### Phase 5 — Supporting modules
+Complete mentorship, programmes, workshops, resources, alumni, notifications, and documents.
+
+### Phase 6 — Integrations
+Implement and test payment, AI, email, and scanning integrations that are in scope.
+
+### Phase 7 — Analytics
+Connect dashboards and exports to real records and documented calculations.
+
+### Phase 8 — Interface refinement
+Complete responsive layouts, accessibility, navigation, and error states.
+
+### Phase 9 — Testing and hardening
+Run build checks, automated tests, security checks, and critical workflows.
+
+### Phase 10 — Deployment readiness
+Prepare configuration, migrations, deployment, monitoring, and recovery procedures.
+
+### Phase 11 — Packaging and handover
+Create the release archive, inspect its contents, complete documentation, and report remaining issues.
+
+At each phase, record changes, evidence, blockers, and next steps.
+
+---
+
+## 33. RELEASE ACCEPTANCE CHECKLIST
+
+The release must be evaluated against the following checklist.
+
+- [ ] Existing codebase inspected and preserved.
+- [ ] Frontend and backend build successfully.
+- [ ] Environment configuration is reproducible.
+- [ ] Supabase connectivity verified through real requests.
+- [ ] Authentication and account-status enforcement work.
+- [ ] Internal and external onboarding are distinct.
+- [ ] Permissions are enforced server-side.
+- [ ] RLS policies are tested.
+- [ ] Idea submission and evaluation persist correctly.
+- [ ] Venture lifecycle transitions are validated.
+- [ ] Milestone tracking uses real records.
+- [ ] Funding decisions distinguish applications, awards, and disbursements.
+- [ ] Mentorship and programme workflows function correctly.
+- [ ] Resource bookings prevent conflicts.
+- [ ] Payment verification and idempotency are tested where applicable.
+- [ ] AI uses a real provider or reports its unavailability.
+- [ ] Document access is controlled.
+- [ ] Notification delivery status is accurate.
+- [ ] Analytics use documented calculations and authorized data.
+- [ ] Critical journeys have test evidence.
+- [ ] Secrets are excluded from client builds and release archives.
+- [ ] Documentation matches the application.
+- [ ] Known issues are disclosed.
+- [ ] Release archive contains the intended source files.
+- [ ] Deployment claims have supporting evidence.
+
+---
+
+## 34. FINAL DELIVERABLES
+
+Provide:
+
+1. Complete application source.
+2. Frontend and backend code.
+3. Database migrations.
+4. RLS policies.
+5. Environment template.
+6. Integration configuration guidance.
+7. Automated tests.
+8. Build and test instructions.
+9. User and administrator guides.
+10. Security and privacy documentation.
+11. Deployment instructions.
+12. Backup and recovery instructions.
+13. Release notes.
+14. Known-issues report.
+15. Test evidence.
+16. Final release report.
+17. A downloadable ZIP archive of the actual project, if the environment supports creating and delivering files.
+
+The ZIP must be inspected before delivery.
+
+Exclude:
+
+- `.env` files containing real secrets
+- Service-role keys
+- API credentials
+- Private production data
+- Unnecessary dependency folders
+- Build caches and temporary files
+
+Do not deliver a static mockup or a few sample files as a substitute for the requested source project.
+
+If the environment cannot create the archive, state that limitation honestly and provide the available source or packaging instructions.
+
+---
+
+## 35. FINAL REPORT FORMAT
+
+After implementation, provide:
+
+### A. Executive summary
+What was actually completed.
+
+### B. Architecture
+Frontend, backend, database, authentication, storage, and integrations.
+
+### C. Feature status
+Implemented, partially implemented, blocked, or unverified for each module.
+
+### D. Database status
+Migrations, schema, RLS, and connectivity evidence.
+
+### E. Security status
+Authentication, authorization, secrets, webhooks, and audit controls.
+
+### F. Test report
+Commands, results, failures, and untested areas.
+
+### G. Deployment status
+Development, staging, and production reported separately.
+
+### H. Outstanding work
+Prioritized defects, dependencies, and risks.
+
+### I. Deliverables
+Actual paths or links to the source archive, migrations, documentation, and release notes.
+
+### J. Handover
+Exact setup, startup, build, test, and troubleshooting instructions.
+
+---
+
+## 36. EXECUTION INSTRUCTION
+
+Begin by inspecting the existing ALABATT-HUB repository.
+
+Do not begin by generating a new, disconnected application.
+
+First audit the codebase and diagnose the known Supabase environment discrepancy. Then implement the highest-priority verified defects, preserve existing functionality, and proceed through the implementation phases.
+
+Use real code, real persistence, real integrations, and verifiable tests.
+
+If a requirement is blocked by missing credentials, permissions, infrastructure, or external-service access, complete the safe work that remains possible and document the exact dependency.
+
+Do not claim completion based on generated code alone. Validate the actual result.
+
+**FINAL OBJECTIVE: Deliver a maintainable, secure, fully functional ALABATT-HUB / ALABATT-CES entrepreneurship platform, with complete source code, verified workflows, database security, reproducible deployment, documented limitations, and a properly packaged release.**
