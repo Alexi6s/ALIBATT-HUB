@@ -70,10 +70,10 @@ export class App {
   userRole = signal<'student' | 'alumni' | 'mentor' | 'evaluator' | 'manager' | 'admin'>('student');
 
   user = signal({
-    name: 'Terwase Michael Aondofa',
-    email: 'terwase.michael@alabatt.edu.ng',
-    roleLabel: 'Student Entrepreneur (BSU)',
-    department: 'Computer Science & Entrepreneurship',
+    name: 'Alexi6s',
+    email: 'alexi6s@alabatt.edu.ng',
+    roleLabel: 'Member',
+    department: 'Centre for Entrepreneurship Studies',
     incubatorId: 'ALABATT-INC-2026-449',
     avatar: 'assets/aistudio/logo11_017061ca.png'
   });
@@ -191,11 +191,41 @@ export class App {
     { id: 'GRT-03', title: 'Green Energy & AgTech Subsidy', provider: 'Federal Ministry of Innovation', amount: '₦1,800,000', deadline: '10 Nov 2026', status: 'Open' }
   ]);
 
-  applyGrant(id: string) {
+  // Grant application modal state
+  activeGrantForApplication = signal<GrantOpportunity | null>(null);
+  selectedProposalId = signal<string>('');
+  grantJustification = signal<string>('');
+
+  openGrantModal(grant: GrantOpportunity) {
+    if (this.ideas().length === 0) {
+      this.showNotification('You must submit a business proposal/idea before applying for grants.', 'error');
+      this.activeTab.set('ideas');
+      return;
+    }
+    this.activeGrantForApplication.set(grant);
+    this.selectedProposalId.set(this.ideas()[0].id);
+    this.grantJustification.set('');
+  }
+
+  submitGrantApplication() {
+    const grant = this.activeGrantForApplication();
+    const proposalId = this.selectedProposalId();
+    if (!grant || !proposalId) {
+      this.showNotification('Please select a submitted business proposal/idea.', 'error');
+      return;
+    }
     this.grants.update(list =>
-      list.map(g => g.id === id ? { ...g, status: 'Applied' } : g)
+      list.map(g => g.id === grant.id ? { ...g, status: 'Applied' } : g)
     );
-    this.showNotification('Funding grant application submitted successfully!', 'success');
+    this.showNotification(`Grant application for "${grant.title}" submitted successfully with proposal ${proposalId}!`, 'success');
+    this.activeGrantForApplication.set(null);
+  }
+
+  applyGrant(id: string) {
+    const grant = this.grants().find(g => g.id === id);
+    if (grant) {
+      this.openGrantModal(grant);
+    }
   }
 
   // 5. Mentorship State
@@ -205,8 +235,40 @@ export class App {
     { id: 'MNT-3', name: 'Mr. David Abenga', expertise: 'Financial Modeling & Tax Compliance', availability: 'Fri (9am - 12pm)', rating: 4.7 }
   ]);
 
-  bookMentor(name: string) {
-    this.showNotification(`Mentorship session successfully booked with ${name}! Confirmation email sent.`, 'success');
+  // Mentorship session booking modal state
+  activeMentorForBooking = signal<Mentor | null>(null);
+  mentorDay = signal<string>('Thursday');
+  mentorTime = signal<string>('10:00 AM - 11:00 AM');
+  mentorMode = signal<'Virtual' | 'Physical'>('Virtual');
+  mentorNotes = signal<string>('');
+
+  openMentorModal(mentor: Mentor) {
+    this.activeMentorForBooking.set(mentor);
+    this.mentorDay.set('Thursday');
+    this.mentorTime.set('10:00 AM - 11:00 AM');
+    this.mentorMode.set('Virtual');
+    this.mentorNotes.set('');
+  }
+
+  confirmMentorBooking() {
+    const mentor = this.activeMentorForBooking();
+    if (!mentor) return;
+    this.showNotification(`Mentorship session booked with ${mentor.name} (${this.mentorMode()} on ${this.mentorDay()} at ${this.mentorTime()})!`, 'success');
+    this.activeMentorForBooking.set(null);
+  }
+
+  requestMentorship(id: string) {
+    const m = this.mentors().find(x => x.id === id);
+    if (m) {
+      this.openMentorModal(m);
+    }
+  }
+
+  bookResource(id: string) {
+    this.resources.update(list =>
+      list.map(r => r.id === id ? { ...r, status: 'Reserved' } : r)
+    );
+    this.showNotification('Resource successfully reserved!', 'success');
   }
 
   // 6. Workshops State
@@ -235,6 +297,59 @@ export class App {
       list.map(r => r.id === id ? { ...r, status: 'Reserved' } : r)
     );
     this.showNotification('Resource successfully reserved!', 'success');
+  }
+
+  // Additional Module States
+  alumni = signal([
+    { id: 'ALM-01', name: 'Dr. Sarah Kator', venture: 'EdTech Labs Makurdi', cohort: '2025-B', status: 'Graduated & Funded' },
+    { id: 'ALM-02', name: 'Ahmad Bello', venture: 'Solaris Agro-Dryers', cohort: '2026-A', status: 'Incubating' }
+  ]);
+
+  payments = signal([
+    { id: 'PAY-881', item: 'Growth Programme Registration', amount: '₦15,000', date: '10 Oct 2026', status: 'Verified & Paid' },
+    { id: 'PAY-882', item: 'Incubator Workspace Fee (Q3)', amount: '₦25,000', date: '01 Sep 2026', status: 'Verified & Paid' }
+  ]);
+
+  resourceLibrary = signal([
+    { id: 'LIB-1', title: 'ALABATT CES Incubator Handbook 2026', type: 'PDF Document', size: '4.2 MB' },
+    { id: 'LIB-2', title: 'Startup Financial Model & Valuation Template', type: 'Excel Spreadsheet', size: '1.8 MB' },
+    { id: 'LIB-3', title: 'Benue State Innovation Grant Application Guidelines', type: 'PDF Document', size: '2.5 MB' }
+  ]);
+
+  appNotifications = signal([
+    { id: 'NOT-1', title: 'Idea Review Update', message: 'Your idea "AgroChain" has been approved by the CES evaluation committee.', date: 'Yesterday' },
+    { id: 'NOT-2', title: 'Mentor Session Reminder', message: 'Upcoming session with Dr. John Okibe on Thursday at 10:00 AM.', date: '2 days ago' }
+  ]);
+
+  verificationStatus = signal({
+    status: 'Verified Member',
+    studentId: 'BSU/2024/CSC/1149',
+    department: 'Computer Science & Entrepreneurship',
+    verifiedDate: '15 August 2026'
+  });
+
+  supportTickets = signal([
+    { id: 'TKT-101', subject: 'Workspace Internet Access Query', status: 'Resolved', date: '10 Oct 2026' },
+    { id: 'TKT-102', subject: 'Grant Disbursement Timeline Inquiry', status: 'In Progress', date: '22 Oct 2026' }
+  ]);
+
+  newSupportSubject = signal('');
+  newSupportMessage = signal('');
+
+  submitSupportTicket() {
+    const sub = this.newSupportSubject().trim();
+    const msg = this.newSupportMessage().trim();
+    if (!sub || !msg) {
+      this.showNotification('Please enter subject and message for support ticket.', 'error');
+      return;
+    }
+    this.supportTickets.update(list => [
+      { id: `TKT-10${list.length + 1}`, subject: sub, status: 'Open', date: new Date().toLocaleDateString() },
+      ...list
+    ]);
+    this.newSupportSubject.set('');
+    this.newSupportMessage.set('');
+    this.showNotification('Support ticket raised successfully! The CES team will respond in your workspace.', 'success');
   }
 
   // Statistics computed
